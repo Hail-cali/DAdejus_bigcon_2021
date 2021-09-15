@@ -41,7 +41,7 @@ def main():
     opt = parse_opts()
 
     if not opt.models:
-        opt.models = ['rf', 'xgb2']
+        opt.models = ['rf', 'xgb','lgbm']
 
     print(f'- use model list {opt.models} -')
 
@@ -54,7 +54,7 @@ def main():
         print(f'<PathErr> check file path :{os.path.join(opt.data_path, opt.file)}')
         dataset = None
 
-    if opt.file[:8] == 'baseball':
+    if opt.file:
 
 
         X_feature = ['득점', '안타', '2타', '3타', '홈런','루타',
@@ -80,7 +80,6 @@ def main():
     if opt.modeltype == 'ensemble':
 
         mapped_model = {'xgb': ('xgboost', xgb.XGBRegressor()),
-                        'xgb2': ('xgboost2', xgb.XGBRegressor()),
                         'lr': ('lr', lm.LinearRegression(n_jobs=-1)),
                         'sgdr': ('SGDRegressor', lm.SGDRegressor()),
                         'ada': ('AdaBoostRegressor', AdaBoostRegressor()),
@@ -172,10 +171,10 @@ def main():
                 'power_t': [0.15, 0.25],
             },
 
-            'xgboost2': {
+            'xgboost': {
                 # 'eta': [0.05, 0.1, 0.15, 0.2, 0.3], #default = 0.3, learning_rate, Typical values 0.01~0.2
-                "n_estimators": [70,100, 120],  # default = 100
-                'max_depth': [3,5,6,7],  # default = 6, Typical values 3~10
+                # "n_estimators": [70,100, 120],  # default = 100
+                # 'max_depth': [3,5,6,7],  # default = 6, Typical values 3~10
                 # 'min_child_weight': [1,2],  # default = 1
                 # 'gamma': list(uniform(0, 0.5).rvs(n)), #default = 0
                 # 'subsample': [0.5, 0.6, 0.7, 0.8, 0.9, 1.0], #default = 1, Typical values 0.5~1
@@ -193,26 +192,17 @@ def main():
                 # "enable_categorical": [True],
             },
 
-            'xgboost': {
-                'colsample_bytree': [uniform(0.7, 0.3)],
-                'gamma': [uniform(0, 0.5)],
-                'learning_rate': [uniform(0.003, 0.3)],  # default 0.1
-                'max_depth': [randint(2, 6)],  # default 3
-                'n_estimators': [randint(100, 250)],  # default 100
-                'subsample': [uniform(0.6, 0.4)],
-
-            },
 
             'AdaBoostRegressor': {
-                'n_estimators': [50, 100, 120],
+                # 'n_estimators': [50, 100, 120],
                 # 'learning_rate': [0.01, 0.05, 0.1, 0.3, 1],
                 # 'loss': ['linear', 'square', 'exponential']
             },
 
             'LGBM': {
-                "learning_rate": [0.05, 0.04],
-                "max_bin": [512, 1000],
-                "num_leaves": [60, 80, 100, 110],
+                # "learning_rate": [0.05, 0.04],
+                # "max_bin": [512, 1000],
+                # "num_leaves": [60, 80, 100, 110],
                 # "min_data_in_leaf": [15, 18, 20],
                 # 'min_data_in_leaf': [20],  # default = 100
                 # 'boosting_type': ['gbdt', 'dart'],  # default = 'gbdt'
@@ -276,13 +266,12 @@ def main():
 
     model = StackingRegressor(estimators=level0, final_estimator=level1, cv=5)
     model.fit(X, y)
-
-    x_test = pd.read_csv(os.path.join(opt.data_path, 'baseball_test_final.csv'))
-    yhat = model.predict(x_test[X_feature])
-
-
-    print(f"final predict value {[ name for name in  zip(x_test.NAME, yhat) ]}")
-
+    x_test = pd.read_csv(os.path.join(opt.data_path, 'baseball_test_final_ip.csv'))
+    y_hat = model.predict(x_test[X_feature])
+    y_true = []
+    print(f"final predict value {[ name for name in  zip(x_test.NAME, y_hat) ]}")
+    # test_mae = mean_absolute_error(y_hat, y_true)
+    # print(f'test_mae')
 
     end_time = time.time()
     print(f'from {opt.file} y_feature {y_feature}  take {end_time - start_time:0.3f} s')
