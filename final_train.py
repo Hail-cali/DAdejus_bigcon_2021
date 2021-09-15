@@ -41,7 +41,7 @@ def main():
     opt = parse_opts()
 
     if not opt.models:
-        opt.models = ['rf', 'xgb','lgbm']
+        opt.models = ['lgbm','xgb', 'rf']
 
     print(f'- use model list {opt.models} -')
 
@@ -62,6 +62,11 @@ def main():
                      '키움', '두산', '한화', 'NC', '롯데', '삼성', 'SSG', '홈경기수',
                      '원정경기수']
 
+        X_feature = ['선발', '타수', '득점', '안타', '2타', '3타', '홈런', '루타',
+                     '타점', '도루', '도실', '볼넷', '사구', '고4', '삼진', '병살',
+                     '희타', 'barrel', '타율', 'LG', 'KIA', 'KT',
+                     '키움', '두산', '한화', 'NC', '롯데', '삼성', 'SSG', '홈경기수',
+                     '원정경기수']
 
     else:
         X_feature = []
@@ -98,7 +103,7 @@ def main():
 
             'LGBM': {'lambda_l1':[1],
                      'lambda_l2':[1.5],
-                     'min_data_in_leaf':[70],
+                     'min_data_in_leaf':[40, 70],
                      'num_leaves':[4]
             },
 
