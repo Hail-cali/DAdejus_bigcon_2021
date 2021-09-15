@@ -64,7 +64,7 @@ def parse_opts():
 
 	parser.add_argument(
 		'--y_feature',
-		default='장타',
+		default='출루',
 		type=str,
 		help='y feature [장타 | 출루 | ops]'
 	)
