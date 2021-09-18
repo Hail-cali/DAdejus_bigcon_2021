@@ -20,7 +20,7 @@ def parse_opts():
 
 	parser.add_argument(
 		'--file',
-		default='baseball_train_final6.csv',
+		default='temp_ws_7.csv',
 		type=str,
 		help='file name')
 
@@ -65,7 +65,7 @@ def parse_opts():
 
 	parser.add_argument(
 		'--y_feature',
-		default='장타',
+		default='출루',
 		type=str,
 		help='y feature [장타 | 출루 | ops]'
 	)

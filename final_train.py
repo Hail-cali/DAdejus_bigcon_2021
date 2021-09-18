@@ -67,15 +67,19 @@ def main():
                      '희타', 'barrel', '타율', 'LG', 'KIA', 'KT',
                      '키움', '두산', '한화', 'NC', '롯데', '삼성', 'SSG', '홈경기수',
                      '원정경기수']
+        # X_feature = ['선발', '타수', '득점', '안타', '2타', '3타', '홈런', '루타',
+        #              '타점', '도루', '도실', '볼넷', '사구', '고4', '삼진', '병살',
+        #              '희타', 'barrel']
 
     else:
         X_feature = []
 
-
+    x_test = pd.read_csv(os.path.join(opt.data_path, 'baseball_test_final_ip.csv'))
     print(f'used x feature {X_feature}')
     y_feature = opt.y_feature
 
     X = dataset[X_feature]
+
     y = dataset.loc[:, y_feature]
 
     if 'PCODE' in X_feature:
@@ -109,7 +113,7 @@ def main():
 
             'RandomForest': {
                 'n_estimators':[100],
-                'max_depth':[5],
+                'max_depth':[3,5],
                 'min_samples_leaf':[22],
                 'min_samples_split':[6]
             },
@@ -135,7 +139,7 @@ def main():
 
                 'RandomForest': {
                     'n_estimators':[100],
-                    'max_depth':[4],
+                    'max_depth':[2,4],
                     'min_samples_leaf':[9],
                     'min_samples_split':[4]
                 },
@@ -180,11 +184,12 @@ def main():
 
     model = StackingRegressor(estimators=level0, final_estimator=level1, cv=5)
     model.fit(X, y)
-    x_test = pd.read_csv(os.path.join(opt.data_path, 'baseball_test_final_ip.csv'))
+
     y_hat = model.predict(x_test[X_feature])
 
     best_model.fit(X,y)
     best_y=best_model.predict(x_test[X_feature])
+
     print(f"best model predict value {[name for name in zip(x_test.NAME, best_y)]}")
     y_true = []
     print(f"final predict value {[ name for name in  zip(x_test.NAME, y_hat) ]}")
