@@ -20,7 +20,7 @@ def parse_opts():
 
 	parser.add_argument(
 		'--file',
-		default='temp_ws_7.csv',
+		default='B_baseball_train_per_game_ws_7.csv',
 		type=str,
 		help='file name')
 

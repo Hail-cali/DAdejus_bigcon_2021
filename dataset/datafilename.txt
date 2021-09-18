@@ -1,0 +1,13 @@
+file name list
+
+train data set
+A,A_baseball_train_per_date_ws_24.csv
+B, B_baseball_train_per_game_ws_7.csv
+
+test data set
+baseball_test_final.csv
+
+raw data set
+feature_baseball.csv
+total_baseball.csv
+total_baseball_with_pcode_barrel.csv
