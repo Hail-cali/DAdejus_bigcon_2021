@@ -1,6 +1,6 @@
 # Big Contest Championship league 
 > Team `Da dejus`
-
+> [@`lhmlhm1111`](https://github.com/lhmlhm1111) [@`codenavy94`](https://github.com/codenavy94) [@`dockjong`](https://github.com/dockjong) [@`Hail-cali`](https://github.com/Hail-cali)
 ## Baseball ops prediction
 
 ### Code description
