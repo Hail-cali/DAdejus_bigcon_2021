@@ -6,7 +6,7 @@
 ### Code description
 - **how to train?** 
     -  we worked code based on shell command with python for faster hyper parameter tuning
-    - the major option you should input, is `-models` `--y_feature`, `--file`, `--data_path`
+    - the major options you should input, are `-models` `--y_feature`, `--file`, `--data_path`
     - for `-models`, `-l` option is model list you want to train, it is mapped inside code with dict
   
 ```shell
