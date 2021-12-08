@@ -129,9 +129,7 @@ def make_time_series_barrel(df, window_size):
 
     return result[X_demo+X_feature+X_out]
 
-
 def make_time_series(df, window_size, slice):
-
 
     if slice:
         X_demo = ['PCODE', 'NAME']
