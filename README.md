@@ -4,7 +4,7 @@
 
 
 > ### Team `Da dejus`
-> ####  🏆 Prize
+> ####  🏆 First Prize (최우수상)
 > [@`lhmlhm1111`](https://github.com/lhmlhm1111) [@`codenavy94`](https://github.com/codenavy94) [@`dockjong`](https://github.com/dockjong) [@`Hail-cali`](https://github.com/Hail-cali)
 ## Baseball ops prediction
 
@@ -42,6 +42,8 @@ python run_grid_stack.py -l xgb lgbm rf --data_path  ./dataset --file train.csv 
 
 ### make test dataset
 - test data
-
+- there was missing data in test period (15.08.21~07.09.21)
+- filling missing data using cos sim between other players and target players
+- also, each player's past match record was used to fill the null data
 ![time_series_test](utils/test_aug.png 'make_test_data'){: width="100" height="100"}
 
